@@ -1,8 +1,8 @@
 import google.generativeai as genai
 import streamlit as st
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
-load_dotenv()
+# load_dotenv()
 st.markdown("""
 <style>
     .centered {
