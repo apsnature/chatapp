@@ -2,6 +2,8 @@ import google.generativeai as genai
 import streamlit as st
 # from dotenv import load_dotenv
 import os
+
+
 # load_dotenv()
 st.markdown("""
 <style>
@@ -14,6 +16,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="centered">AI-Powered Chat Companion by Shahid</div>', unsafe_allow_html=True)
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 model = genai.GenerativeModel('gemini-pro')
 
 # Initialize chat history
