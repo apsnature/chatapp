@@ -16,6 +16,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown('<div class="centered">AI-Powered Chat Companion by Shahid</div>', unsafe_allow_html=True)
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 model = genai.GenerativeModel('gemini-pro')
 
 # Initialize chat history
@@ -41,11 +42,15 @@ if prompt := st.chat_input("What is up?"):
         
 
 # Assistant message stream (in chunks)
-    response = model.generate_content(prompt, stream=True)
-    with st.chat_message("assistant"):
-        fullresponse = ""
-        for chunk in response:
-            fullresponse += chunk.text
-            st.markdown(chunk.text)
+    try:
+        response = model.generate_content(prompt, stream=True)
+        with st.chat_message("assistant"):
+            fullresponse = ""
+            for chunk in response:
+                fullresponse += chunk.text
+                st.markdown(chunk.text)
 
         st.session_state.messages.append({"role": "assistant", "content": fullresponse})
+    
+    except:
+        st.subheader("Oh My Bad! Please try again! :500")
