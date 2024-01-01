@@ -34,12 +34,7 @@ if prompt := st.chat_input("What is up?"):
         st.session_state.messages.append({"role": "user", "content": prompt})
         st.markdown(prompt)
 
-# Assistant message one time
-    # response = model.generate_content(prompt)
-    # with st.chat_message("assistant"):
-    #     st.session_state.messages.append({"role": "assistant", "content": response.text})
-    #     st.markdown(response.text)
-        
+
 
 # Assistant message stream (in chunks)
     try:
