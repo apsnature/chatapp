@@ -18,25 +18,20 @@ model = genai.GenerativeModel('gemini-pro')
 
 # Initialize chat history
 if "messages" not in st.session_state:
-    st.session_state.messages = [{"role": "assistant", "content": "How I can assist you today?"}]
+    st.session_state.mychat_app_messages = [{"role": "assistant", "content": "How I can assist you today?"}]
 
 # Display chat messages from history on app rerun
-for message in st.session_state.messages:
+for message in st.session_state.mychat_app_messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
 # Accept user input
 if prompt := st.chat_input("What is up?"):
     with st.chat_message("user"):
-        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.mychat_app_messages.append({"role": "user", "content": prompt})
         st.markdown(prompt)
 
-# Assistant message one time
-    # response = model.generate_content(prompt)
-    # with st.chat_message("assistant"):
-    #     st.session_state.messages.append({"role": "assistant", "content": response.text})
-    #     st.markdown(response.text)
-        
+
 
 # Assistant message stream (in chunks)
     response = model.generate_content(prompt, stream=True)
@@ -46,4 +41,4 @@ if prompt := st.chat_input("What is up?"):
             fullresponse += chunk.text
             st.markdown(chunk.text)
 
-        st.session_state.messages.append({"role": "assistant", "content": fullresponse})
+        st.session_state.mychat_app_messages.append({"role": "assistant", "content": fullresponse})
